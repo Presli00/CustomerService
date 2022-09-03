@@ -17,12 +17,12 @@ namespace CustomerService.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Car>>> Get()
         {
-            return Ok(await _context.Cars.ToListAsync());
+            return Ok(await _context.Car.ToListAsync());
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Car>> Get(int id)
         {
-            var car = await _context.Cars.FindAsync(id);
+            var car = await _context.Car.FindAsync(id);
             if (car == null)
             {
                 return BadRequest("Customer not found");
@@ -32,14 +32,14 @@ namespace CustomerService.Controllers
         [HttpPost]
         public async Task<ActionResult<List<Car>>> AddCar(Car car)
         {
-            _context.Cars.Add(car);
+            _context.Car.Add(car);
             await _context.SaveChangesAsync();
-            return Ok(await _context.Cars.ToListAsync());
+            return Ok(await _context.Car.ToListAsync());
         }
         [HttpPut]
         public async Task<ActionResult<List<Car>>> UpdateCar(Car c)
         {
-            var car = await _context.Cars.FindAsync(c.Id);
+            var car = await _context.Car.FindAsync(c.Id);
             if (car == null)
             {
                 return BadRequest("Customer not found");
@@ -50,20 +50,20 @@ namespace CustomerService.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Cars.ToListAsync());
+            return Ok(await _context.Car.ToListAsync());
         }
         [HttpDelete("{id}")]
         public async Task<ActionResult<Car>> Delete(int id)
         {
-            var car = await _context.Cars.FindAsync(id);
+            var car = await _context.Car.FindAsync(id);
             if (car == null)
             {
                 return BadRequest("Car not found");
             }
-            _context.Cars.Remove(car);
+            _context.Car.Remove(car);
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Cars.ToListAsync());
+            return Ok(await _context.Car.ToListAsync());
         }
     }
 }
