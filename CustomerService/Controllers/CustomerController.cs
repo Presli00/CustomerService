@@ -11,20 +11,39 @@ namespace CustomerService.Controllers
 
         private readonly DataContext _context;
 
-        public CustomerController(DataContext context) {
+        public CustomerController(DataContext context)
+        {
             _context = context;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Customer>>> Get()
         {
-            return Ok(await _context.Customers.ToListAsync());
+            return Ok(await _context.Customers.Select(c => new Customer()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                SurName = c.SurName,
+                FamilyName = c.FamilyName,
+                CarId = c.CarId,
+                Car = c.Car
+            }).ToListAsync());
+
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> Get(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null) {
+            var customer = await _context.Customers.Where(c => c.Id == id).Select(c => new Customer()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                SurName = c.SurName,
+                FamilyName = c.FamilyName,
+                CarId = c.CarId,
+                Car = c.Car
+            }).ToListAsync();
+            if (customer == null)
+            {
                 return BadRequest("Customer not found");
             }
             return Ok(customer);
@@ -34,13 +53,22 @@ namespace CustomerService.Controllers
         {
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
-            return Ok(await _context.Customers.ToListAsync());
+            return Ok(await _context.Customers.Select(c => new Customer()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                SurName = c.SurName,
+                FamilyName = c.FamilyName,
+                CarId = c.CarId,
+                Car = c.Car
+            }).ToListAsync());
         }
         [HttpPut]
         public async Task<ActionResult<List<Customer>>> UpdateCustomer(Customer c)
         {
-            var customer=await _context.Customers.FindAsync(c.Id);
-            if (customer == null) {
+            var customer = await _context.Customers.FindAsync(c.Id);
+            if (customer == null)
+            {
                 return BadRequest("Customer not found");
             }
             customer.Name = c.Name;
@@ -50,7 +78,15 @@ namespace CustomerService.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Customers.ToListAsync());
+            return Ok(await _context.Customers.Select(c => new Customer()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                SurName = c.SurName,
+                FamilyName = c.FamilyName,
+                CarId = c.CarId,
+                Car = c.Car
+            }).ToListAsync());
         }
         [HttpDelete("{id}")]
         public async Task<ActionResult<Customer>> Delete(int id)
@@ -63,7 +99,15 @@ namespace CustomerService.Controllers
             _context.Customers.Remove(customer);
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Customers.ToListAsync());
+            return Ok(await _context.Customers.Select(c => new Customer()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                SurName = c.SurName,
+                FamilyName = c.FamilyName,
+                CarId = c.CarId,
+                Car = c.Car
+            }).ToListAsync()); ;
         }
     }
 }
