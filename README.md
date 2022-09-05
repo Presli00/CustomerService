@@ -1,6 +1,6 @@
 # CustomerService
 
-This is an API application wich allows CRUD operations on a customer entity. The platform used in this app is .NET which allows the use of Swagger (an API developer tool which gives us control over the entire API lifecycle). I used Microsoft SQL server to make the database, which contains two tables - customer and car. The communication between the database and the API is achived with Entity Framework.
+This is an API application which allows CRUD operations on a customer entity. The platform used in this app is .NET which allows the use of Swagger (an API developer tool which gives us control over the entire API lifecycle). I used Microsoft SQL server to make the database, which contains two tables - customer and car. The communication between the database and the API is achived with Entity Framework.
 
 Q: Why use .NET?
 A: .NET is a platform used fo developing high quality applications for any platform. It has a wide variety of tools, libraries, common APIs and it also supports multiple languages.
